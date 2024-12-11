@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import vn.iuh.edu.fit.labweek05.backend.models.Address;
 import vn.iuh.edu.fit.labweek05.backend.models.Company;
 import vn.iuh.edu.fit.labweek05.backend.models.Job;
+import vn.iuh.edu.fit.labweek05.backend.repositories.AddressRepository;
 import vn.iuh.edu.fit.labweek05.backend.repositories.CompanyRepository;
 import vn.iuh.edu.fit.labweek05.backend.services.CompanyService;
 import vn.iuh.edu.fit.labweek05.backend.services.JobService;
@@ -27,6 +27,8 @@ public class CompanyController {
 
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
 
     @GetMapping("/list")
@@ -50,5 +52,42 @@ public class CompanyController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "company/paging";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showCOmpanyItem(@PathVariable Long id, Model model) {
+        Optional<Company> company = companyRepository.findById(id);
+        if(company != null){
+            model.addAttribute("company", company.get());
+        }
+
+        return "company/update";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateCompany(@PathVariable Long id, @ModelAttribute Company company) {
+        Company subCompany = companyRepository.findById(id).get();
+        Address address = addressRepository.findById(subCompany.getAddress().getId()).get();
+        if(company.getAddress() != null){
+            address.setStreet(company.getAddress().getStreet());
+            address.setCity(company.getAddress().getCity());
+            address.setZipcode(company.getAddress().getZipcode());
+        } else {
+            System.out.println("Address is null!");
+        }
+        company.setAddress(address);
+        companyRepository.save(company);
+
+        return "redirect:/companies/paging";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteCompany(@PathVariable Long id) {
+        if(companyRepository.existsById(id)) {
+            companyRepository.deleteById(id);
+        } else {
+            System.out.println("Company with id " + id + " does not exist!");
+        }
+        return "redirect:/companies/paging";
     }
 }
