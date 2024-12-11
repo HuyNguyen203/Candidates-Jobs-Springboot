@@ -8,7 +8,7 @@
 </head>
 <body style="width: 100%; display: flex; justify-content: center; align-items: center">
 <div style="padding: 20px; width: 70%">
-    <h2>Update Candidate</h2>
+    <h2>Update Job</h2>
     <a th:href="@{/jobs/paging}" class="btn btn-primary mb-3">Back to List</a>
 
     <form th:action="@{/jobs/edit/{id}(id=${job.id})}" th:object="${job}" method="post">
@@ -21,18 +21,6 @@
             <label for="jobDesc" class="form-label">Description</label>
             <input type="text" id="jobDesc" name="jobDesc" th:field="*{jobDesc}" class="form-control" required>
         </div>
-
-        <div class="mb-3">
-            <label for="company" class="form-label">Company</label>
-            <select type="text" id="company" name="company" th:field="*{company.compName}" class="form-control">
-                <option value="" disabled selected>-- Select a Company --</option>
-                <option th:each="company : ${companies}"
-                        th:value="${company}"
-                        th:text="${company}">
-                </option>
-            </select>
-        </div>
-
 
         <button type="submit" class="btn btn-success">Save</button>
     </form>

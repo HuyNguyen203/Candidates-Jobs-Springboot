@@ -27,4 +27,13 @@ public class Job {
     @JoinColumn(name = "company")
     private Company company;
 
+    @Override
+    public String toString() {
+        return "Job{" +
+                "jobDesc='" + jobDesc + '\'' +
+                ", id=" + id +
+                ", jobName='" + jobName + '\'' +
+                ", company=" + company.getId() +
+                '}';
+    }
 }

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import vn.iuh.edu.fit.labweek05.backend.models.Company;
 import vn.iuh.edu.fit.labweek05.backend.models.Job;
+import vn.iuh.edu.fit.labweek05.backend.repositories.CompanyRepository;
 import vn.iuh.edu.fit.labweek05.backend.repositories.JobRepository;
 import vn.iuh.edu.fit.labweek05.backend.services.CompanyService;
 import vn.iuh.edu.fit.labweek05.backend.services.JobService;
@@ -28,6 +28,8 @@ public class JobController {
 
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @GetMapping("/list")
     public String showJobList(Model model) {
@@ -50,5 +52,25 @@ public class JobController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "job/paging";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showJobItem(@PathVariable Long id, Model model) {
+        Optional<Job> job = jobRepository.findById(id);
+        if(job != null){
+            model.addAttribute("job", job.get());
+        }
+
+        return "job/update";
+    }
+
+    @PostMapping("edit/{id}")
+    public String editJob(@PathVariable Long id, @ModelAttribute Job job) {
+        Job subJob = jobRepository.findById(id).get();
+        subJob.setJobName(job.getJobName());
+        subJob.setJobDesc(job.getJobDesc());
+        jobRepository.save(subJob);
+
+        return "redirect:/jobs/paging";
     }
 }

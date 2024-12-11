@@ -55,7 +55,7 @@ public class CompanyController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showCOmpanyItem(@PathVariable Long id, Model model) {
+    public String showCompanyItem(@PathVariable Long id, Model model) {
         Optional<Company> company = companyRepository.findById(id);
         if(company != null){
             model.addAttribute("company", company.get());
