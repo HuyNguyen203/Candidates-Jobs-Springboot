@@ -36,12 +36,12 @@
                             <td th:text="${candidate.phone}" class="table-cell"></td>
                             <td th:text="${candidate.email}" class="table-cell"></td>
                             <td class="table-cell">
-                                <form th:action="@{/list/edit/{id}(id=${candidate.id})}" style="display: inline;">
+                                <form th:action="@{/candidates/edit/{id}(id=${candidate.id})}" style="display: inline;">
                                     <button type="submit" class="btn btn-primary">Edit</button>
                                 </form>
                             </td>
                             <td class="table-cell">
-                                <form th:action="@{/list/delete/{id}(id=${candidate.id})}" method="post" style="display: inline;">
+                                <form th:action="@{/candidates/delete/{id}(id=${candidate.id})}" method="post" style="display: inline;">
                                     <input type="hidden" name="_method" value="delete">
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>

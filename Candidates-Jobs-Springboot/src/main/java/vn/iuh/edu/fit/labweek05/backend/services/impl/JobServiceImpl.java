@@ -2,6 +2,9 @@ package vn.iuh.edu.fit.labweek05.backend.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.iuh.edu.fit.labweek05.backend.models.Job;
 import vn.iuh.edu.fit.labweek05.backend.repositories.CandidateRepository;
@@ -28,7 +31,11 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Page<Job> findAll(int page, String sortField, String sortDirection) {
-        return null;
+        Sort sort = Sort.by(sortField);
+        sort = sortDirection.equalsIgnoreCase("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(page, 10, sort);
+        return jobRepository.findAll(pageable);
     }
 
     @Override

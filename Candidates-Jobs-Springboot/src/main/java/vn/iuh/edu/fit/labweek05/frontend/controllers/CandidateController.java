@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("/list")
+@RequestMapping("/candidates")
 public class CandidateController {
     @Autowired
     private CandidateRepository candidateRepository;
@@ -30,12 +30,12 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
 
-    @GetMapping("")
+    @GetMapping("/list")
     public String showCandidateList(Model model){
         model.addAttribute("candidates", candidateService.findAll());
         return "candidate/list";
     }
-    @GetMapping("/candidates")
+    @GetMapping("/paging")
     public String showCandidatePaging(Model model,
                                       @RequestParam("page")Optional<Integer> page,
                                       @RequestParam("size")Optional<Integer> size){
@@ -87,7 +87,7 @@ public class CandidateController {
         candidate.setAddress(address);
         candidateRepository.save(candidate);
 
-        return "redirect:/list/candidates";  // Nếu không tìm thấy ứng viên, chuyển hướng về danh sách
+        return "redirect:/candidates/paging";  // Nếu không tìm thấy ứng viên, chuyển hướng về danh sách
     }
 
     @DeleteMapping("/delete/{id}")
@@ -98,7 +98,7 @@ public class CandidateController {
             // Log hoặc xử lý nếu cần
             System.out.println("Candidate with id " + id + " does not exist!");
         }
-        return "redirect:/list";
+        return "redirect:/candidates/paging";
     }
 
 

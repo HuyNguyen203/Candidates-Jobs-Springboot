@@ -9,9 +9,9 @@
 <body style="width: 100%; display: flex; justify-content: center; align-items: center">
 <div style="padding: 20px; width: 70%">
     <h2>Update Candidate</h2>
-    <a th:href="@{/list/candidates}" class="btn btn-primary mb-3">Back to List</a>
+    <a th:href="@{/candidates/paging}" class="btn btn-primary mb-3">Back to List</a>
 
-    <form th:action="@{/list/edit/{id}(id=${candidate.id})}" th:object="${candidate}" method="post">
+    <form th:action="@{/candidates/edit/{id}(id=${candidate.id})}" th:object="${candidate}" method="post">
         <div class="mb-2">
             <label for="fullName" class="form-label">Full Name</label>
             <input type="text" id="fullName" name="fullName"  th:field="*{fullName}" class="form-control" required>
