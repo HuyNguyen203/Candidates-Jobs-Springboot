@@ -1,15 +1,17 @@
 package vn.iuh.edu.fit.labweek05.backend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vn.iuh.edu.fit.labweek05.backend.enums.SkillType;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "skill")
 public class Skill {
     @Id
@@ -22,7 +24,8 @@ public class Skill {
     @Column(name = "skill_name")
     private String skillName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private Byte type;
+    private SkillType type;
 
 }

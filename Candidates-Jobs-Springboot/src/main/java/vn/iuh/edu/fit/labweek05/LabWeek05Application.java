@@ -6,14 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import vn.iuh.edu.fit.labweek05.backend.models.Address;
-import vn.iuh.edu.fit.labweek05.backend.models.Candidate;
-import vn.iuh.edu.fit.labweek05.backend.models.Company;
-import vn.iuh.edu.fit.labweek05.backend.models.Job;
-import vn.iuh.edu.fit.labweek05.backend.repositories.AddressRepository;
-import vn.iuh.edu.fit.labweek05.backend.repositories.CandidateRepository;
-import vn.iuh.edu.fit.labweek05.backend.repositories.CompanyRepository;
-import vn.iuh.edu.fit.labweek05.backend.repositories.JobRepository;
+import vn.iuh.edu.fit.labweek05.backend.enums.SkillLevel;
+import vn.iuh.edu.fit.labweek05.backend.enums.SkillType;
+import vn.iuh.edu.fit.labweek05.backend.models.*;
+import vn.iuh.edu.fit.labweek05.backend.repositories.*;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -34,9 +30,81 @@ public class LabWeek05Application {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private SkillRepository skillRepository;
+
+    @Autowired
+    private CandidateSkillRepository candidateSkillRepository;
+
+    @Autowired
+    private JobSKillRepository jobSKillRepository;
+
+    @Autowired
+    private ExperienceRepository experienceRepository;
+
     @Bean
     CommandLineRunner initData(){
         return args -> {
+//  Fake data experience
+//            Random rand = new Random();
+//            for(int i = 1; i <= 100; i++)
+//            {
+//                String companyName = "Company " + i;
+//                int year = rand.nextInt(8) + 2018;
+//                int month = rand.nextInt(12) + 1;
+//                int day = rand.nextInt(28) + 1;
+//                LocalDate from_date = LocalDate.of(year, month, day);
+//                int newYear = rand.nextInt(8) + 2025;
+//                LocalDate to_date = LocalDate.of(newYear, month, day);
+//                String role = "role" + i;
+//                String workDescription = "Description " + i;
+//                Long candidateid = rand.nextLong(994) + 6;
+//                Candidate candidate = candidateRepository.findById(candidateid).orElse(null);
+//                Experience experience = new Experience((long)i, to_date, candidate, from_date, companyName, role, workDescription);
+//                experienceRepository.save(experience);
+//            }
+
+ //  Fake data jobSKillRepository
+//            Random rnd = new Random();
+//            for(int i = 1; i <= 100; i++)
+//            {
+//                String more_infos = "more_infos"+i;
+//                SkillLevel skillLevel = SkillLevel.values()[new Random().nextInt(SkillLevel.values().length)];
+//                Long skillid = rnd.nextLong(99) + 1;
+//                Long jobid = rnd.nextLong(94) + 1007;
+//                Skill skill = skillRepository.findById(skillid).get();
+//                Job job = jobRepository.findById(jobid).get();
+//                JobSkillId jobSkillId = new JobSkillId(jobid, skillid);
+//                JobSkill jobSkill = new JobSkill(jobSkillId, job, skill, more_infos, skillLevel);
+//                jobSKillRepository.save(jobSkill);
+//            }
+
+//  Fake data candidateSkillRepository
+//            Random rnd = new Random();
+//            for(int i = 1; i <= 100; i++)
+//            {
+//                String more_infos = "more_infos"+i;
+//                SkillLevel skillLevel = SkillLevel.values()[new Random().nextInt(SkillLevel.values().length)];
+//                Long skillid = rnd.nextLong(99) + 1;
+//                Long candidateid = rnd.nextLong(994) + 6;
+//                Skill skill = skillRepository.findById(skillid).get();
+//                Candidate candidate = candidateRepository.findById(candidateid).get();
+//                CandidateSkillId candidateSkillId = new CandidateSkillId(candidateid,skillid);
+//                CandidateSkill candidateSkill = new CandidateSkill(candidateSkillId, candidate, skill, more_infos, skillLevel);
+//                candidateSkillRepository.save(candidateSkill);
+//            }
+
+//  Fake data skillRepository
+//            for(int i = 1; i < 100; i++)
+//            {
+//                String description = "description" + i;
+//                String skillName = "skill" + i;
+//                SkillType skillType = SkillType.values()[new Random().nextInt(SkillType.values().length)];
+//                Skill skill = new Skill((long)i, description, skillName, skillType);
+//                skillRepository.save(skill);
+//            }
+
+//  Fake data candidateRepository
 //            Random rnd = new Random();
 //            for(int i = 1; i < 1000; i++) {
 //                String number = rnd.nextInt(70000,80000)+"";
@@ -54,6 +122,8 @@ public class LabWeek05Application {
 //                candidateRepository.save(can);
 //                System.out.println("Added: " + can);
 //            }
+
+//  Fake data jobRepository
 //            for(int i = 1000 ; i <= 1100; i++)
 //            {
 //                String number = rnd.nextInt(70000,80000)+"";
@@ -66,6 +136,8 @@ public class LabWeek05Application {
 //                Job job = new Job((long)i, "jobDesc"+i, "jobName"+i, company);
 //                jobRepository.save(job);
 //            }
+
+
         };
     }
 }

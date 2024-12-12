@@ -73,4 +73,14 @@ public class JobController {
 
         return "redirect:/jobs/paging";
     }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteCompany(@PathVariable Long id) {
+        if(jobRepository.existsById(id)) {
+            jobRepository.deleteById(id);
+        } else {
+            System.out.println("Job with id " + id + " does not exist!");
+        }
+        return "redirect:/jobs/paging";
+    }
 }

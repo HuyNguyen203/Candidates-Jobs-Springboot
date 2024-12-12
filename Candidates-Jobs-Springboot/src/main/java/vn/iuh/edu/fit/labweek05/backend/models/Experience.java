@@ -1,10 +1,14 @@
 package vn.iuh.edu.fit.labweek05.backend.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Experience")
 public class Experience {
     @Id
