@@ -48,6 +48,7 @@ public class LabWeek05Application {
     CommandLineRunner initData(){
         return args -> {
 
+
 //  Fake data candidateRepository
 //            Random rnd = new Random();
 //            for(int i = 1; i < 10; i++) {

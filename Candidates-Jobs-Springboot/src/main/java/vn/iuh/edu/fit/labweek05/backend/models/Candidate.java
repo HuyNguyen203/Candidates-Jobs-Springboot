@@ -15,6 +15,7 @@ import java.util.Set;
 @Table(name = "candidate")
 public class Candidate {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -47,8 +48,7 @@ public class Candidate {
     public Candidate(){
 
     }
-    public Candidate(Long id, LocalDate dob, String email, String fullName, String phone, Address address) {
-        this.id = id;
+    public Candidate(LocalDate dob, String email, String fullName, String phone, Address address) {
         this.dob = dob;
         this.email = email;
         this.fullName = fullName;
@@ -59,7 +59,6 @@ public class Candidate {
     @Override
     public String toString() {
         return "Candidate{" +
-                "id=" + id +
                 ", dob=" + dob +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +

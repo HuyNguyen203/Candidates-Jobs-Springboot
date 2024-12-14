@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "company",  uniqueConstraints = {
@@ -50,4 +49,11 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private Set<Job> jobs = new LinkedHashSet<>();
 
+    public Company(String webUrl, String about, String phone, String email, String compName) {
+        this.webUrl = webUrl;
+        this.about = about;
+        this.phone = phone;
+        this.email = email;
+        this.compName = compName;
+    }
 }

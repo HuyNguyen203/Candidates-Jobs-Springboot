@@ -18,46 +18,38 @@
     </style>
 </head>
 <body>
-
 <!-- Header -->
-<div th:replace="~{common/header.html}"></div>
-<div>
-    <div th:if="${param.success}">
-        <p class="alert alert-success text-center">
-            <span>Registration successful! </span>
-            <a href="/login">Log in now to get started!</a>
-        </p>
-    </div>
-    <div th:if="${param.fail}">
-        <div class="alert alert-danger text-center">You've unsuccessfully registered! Please try again!</div>
-    </div>
-</div>
-<div class="container mt-4" style="justify-content: center;display: flex;">
+<!--<div th:replace="~{common/header.html}"></div>-->
+<!--<div>-->
+<!--    <div th:if="${param.success}">-->
+<!--        <p class="alert alert-success text-center">-->
+<!--            <span>Registration successful! </span>-->
+<!--            <a href="/login">Log in now to get started!</a>-->
+<!--        </p>-->
+<!--    </div>-->
+<!--    <div th:if="${param.fail}">-->
+<!--        <div class="alert alert-danger text-center">You've unsuccessfully registered! Please try again!</div>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="container mt-4" style="justify-content: center;display: flex; height: 300px; align-items: center;">
 
-    <div class="d-flex">
-        <div class="card p-4 mr-2" style="max-width: 400px; width: 100%;">
-            <h3 class="text-center mb-4">Register as Candidate</h3>
-            <p class="text-center">Create an account to find job opportunities and apply easily.</p>
-            <div class="d-flex flex-column">
-                <a href="#registerCandidateModal" data-toggle="modal" class="btn btn-primary btn-custom">Register as
-                    Candidate</a>
+    <div class="d-flex" style="display: flex; height: 100%">
+            <div class="d-flex flex-column" style="margin: 30px">
+                <p style="text-align: center; font-size: 20px; font-weight: bold">For Candidate</p>
+                <a href="#registerCandidateModal" data-toggle="modal" class="btn btn-primary btn-custom">Register</a>
             </div>
-        </div>
-        <div class="card p-4 ml-2" style="max-width: 400px; width: 100%;">
-            <h3 class="text-center mb-4">Register as Company</h3>
-            <p class="text-center">Create an account to post job listings and find top talent.</p>
-            <div class="d-flex flex-column">
-                <a href="#registerCompanyModal" data-toggle="modal" class="btn btn-secondary btn-custom">Register as
-                    Company</a>
+            <span style="border-left: 1px solid black; height: 180px;"/>
+            <div class="d-flex flex-column" style="margin: 30px">
+                <p style="text-align: center; font-size: 20px; font-weight: bold">For Company</p>
+                <a href="#registerCompanyModal" data-toggle="modal" class="btn btn-primary btn-custom">Register</a>
             </div>
-        </div>
 
     </div>
 </div>
 <!-- Register Modal For Company -->
 <div class="modal fade" id="registerCompanyModal" tabindex="-1" role="dialog" aria-labelledby="registerCompanyModal"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+     aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Register as Company</h5>
@@ -65,9 +57,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <form action="/register/company">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-6 form-group">
                             <label>Company Name:</label>
                             <input type="text" class="form-control" placeholder="Name" name="name" required>
@@ -77,14 +69,7 @@
                             <input type="text" class="form-control" placeholder="Web URL" name="welUrl" required>
                         </div>
                     </div>
-                    <div class="row mt-1">
-                        <div class="col-md-12 form-group">
-                            <label>About Company:</label>
-                            <textarea type="text" class="form-control" placeholder="About company" name="about"
-                                      required></textarea>
-                        </div>
-                    </div>
-                    <div class="row mt-1">
+                    <div class="row" >
                         <div class="col-md-6 form-group">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" placeholder="Email" name="email" required>
@@ -94,42 +79,44 @@
                             <input type="text" class="form-control" placeholder="Password" name="password" required>
                         </div>
                     </div>
-
                     <div class="row mt-1">
-                        <div class="col-md-6 form-group">
-                            <label for="phone">Phone Number:</label>
-                            <input type="text" class="form-control" placeholder="Phone Number" name="phone" required>
-                        </div>
-                        <div class="col-md-6 form-group city">
-                            <label for="city">City:</label>
-                            <input type="text" class="form-control" placeholder="City" name="city" required>
+                        <div class="col-md-12 form-group">
+                            <label>About Company:</label>
+                            <textarea type="text" class="form-control" placeholder="About company" name="about" required></textarea>
                         </div>
                     </div>
+
 
                     <!-- Address Section -->
                     <div class="address-block">
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label for="country">Country Code:</label>
-                                <input type="text" class="form-control" placeholder="Country Code" name="country"
+                                <label for="country">Country:</label>
+                                <input type="text" class="form-control" placeholder="Country Code" name="country" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="number">Phone Number:</label>
+                                <input type="text" class="form-control" placeholder="Phone" name="phone" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="city">City:</label>
+                                <input type="text" class="form-control" placeholder="City" name="city" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="number">Street:</label>
+                                <input type="text" class="form-control" placeholder="Street" name="street"
                                        required>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="number">Number:</label>
+                                <label for="street">Number:</label>
                                 <input type="text" class="form-control" placeholder="Number" name="number" required>
-                            </div>
-                        </div>
-
-                        <div class="row mt-1">
-                            <div class="col-md-6 form-group">
-                                <label for="street">Street:</label>
-                                <input type="text" class="form-control" placeholder="Street" name="street" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="zipcode">Zipcode:</label>
                                 <input type="text" class="form-control" placeholder="Zip code" name="zipcode" required>
                             </div>
                         </div>
+
                     </div>
                     <button type="submit" class="btn btn-primary form-control mt-4">Submit</button>
                 </form>
@@ -165,8 +152,6 @@
                             <input type="date" class="form-control" id="dob" placeholder="Date of birth" name="dob"
                                    required>
                         </div>
-                    </div>
-                    <div class="row mt-1">
                         <div class="col-md-6 form-group">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" placeholder="Email" name="email"
@@ -177,9 +162,6 @@
                             <input type="password" class="form-control" id="password" placeholder="Password"
                                    name="password" required>
                         </div>
-                    </div>
-
-                    <div class="row mt-1">
                         <div class="col-md-6 form-group">
                             <label for="phone">Phone Number:</label>
                             <input type="text" class="form-control" id="phone" placeholder="Phone Number" name="phone"
@@ -195,8 +177,8 @@
                     <div class="address-block">
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label for="country">Country Code:</label>
-                                <input type="text" class="form-control" id="country" placeholder="Country Code"
+                                <label for="country">Country:</label>
+                                <input type="text" class="form-control" id="country" placeholder="Country"
                                        name="country" required>
                             </div>
                             <div class="col-md-6 form-group">
@@ -229,6 +211,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

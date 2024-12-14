@@ -29,29 +29,4 @@ public class UserController {
         return "auth/login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        User user = null;
-        Candidate candidate = candidateRepository.findByEmail(email);
-        Company company = companyRepository.findByEmail(email);
-
-        if(candidate != null){
-            user = userRepository.findByCandidate(candidate);
-        }
-        else if(company != null){
-            user = userRepository.findByCompany(company);
-        }
-        if(user != null){
-            if(user.getPassword().equals(password)){
-                model.addAttribute("user", user);
-                return "home/index";
-            }
-            else {
-                model.addAttribute("errorPassword", "Sai mật khẩu");
-            }
-        } else {
-            model.addAttribute("errorEmail", "Email không tồn tại");
-        }
-        return "auth/login";
-    }
 }
