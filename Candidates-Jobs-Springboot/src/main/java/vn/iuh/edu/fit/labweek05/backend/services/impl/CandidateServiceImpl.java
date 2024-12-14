@@ -39,7 +39,8 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidate save(long id, Candidate candidateDatils) {
-        Candidate candidate = candidateRepository.findById(id);
+//        Candidate candidate = candidateRepository.findById(id);
+        Candidate candidate = candidateRepository.findById(id).get();
         if(candidate != null) {
             candidate.setId(id);
             candidate.setAddress(candidateDatils.getAddress());

@@ -42,11 +42,13 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label" style="font-weight: bold">Email:</label>
-                <input type="email" class="form-control" id="email" name="username" placeholder="Enter your email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                <span th:text=" ${errorEmail}" style="color: red; font-size: 10px">*</span>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label" style="font-weight: bold">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                <span th:text=" ${errorPassword}" style="color: red; font-size: 10px">*</span>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Login</button>

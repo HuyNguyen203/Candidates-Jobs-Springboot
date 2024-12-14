@@ -12,7 +12,6 @@ import java.util.List;
 
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
-    Candidate findById(long id);
+    Candidate findByEmail(String email);
     Candidate save(Candidate candidate);
-
 }

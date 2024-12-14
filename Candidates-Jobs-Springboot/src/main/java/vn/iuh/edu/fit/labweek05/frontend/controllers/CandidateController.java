@@ -43,7 +43,7 @@ public class CandidateController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        Candidate candidate = candidateRepository.findById(3);
+        Candidate candidate = candidateRepository.findById(3L).get();
         model.addAttribute("candidate", candidate);
         return "Profile/candidate";
     }
