@@ -31,6 +31,7 @@ public class CompanyController {
     private AddressRepository addressRepository;
 
 
+
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("companies", companyRepository.findAll());

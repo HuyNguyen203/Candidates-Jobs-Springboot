@@ -1,15 +1,20 @@
 package vn.iuh.edu.fit.labweek05.frontend.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import vn.iuh.edu.fit.labweek05.backend.models.*;
 import vn.iuh.edu.fit.labweek05.backend.repositories.AddressRepository;
 import vn.iuh.edu.fit.labweek05.backend.repositories.CandidateRepository;
+import vn.iuh.edu.fit.labweek05.backend.repositories.CandidateSkillRepository;
+import vn.iuh.edu.fit.labweek05.backend.repositories.SkillRepository;
 import vn.iuh.edu.fit.labweek05.backend.services.CandidateService;
-import vn.iuh.edu.fit.labweek05.backend.models.Address;
-import vn.iuh.edu.fit.labweek05.backend.models.Candidate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +34,19 @@ public class CandidateController {
 
     @Autowired
     private CandidateService candidateService;
+
+    @Autowired
+    private CandidateSkillRepository candidateSkillRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        Candidate candidate = candidateRepository.findById(3);
+        model.addAttribute("candidate", candidate);
+        return "Profile/candidate";
+    }
 
     @GetMapping("/list")
     public String showCandidateList(Model model){

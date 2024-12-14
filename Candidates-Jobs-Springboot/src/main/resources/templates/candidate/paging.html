@@ -26,7 +26,7 @@
                     <th style="border-left: 1px solid #333">Phone</th>
                     <th style="border-left: 1px solid #333">Email</th>
                     <th style="border-left: 1px solid #333">Edit</th>
-                    <th style="border-left: 1px solid #333">Delete</th>
+<!--                    <th style="border-left: 1px solid #333">Delete</th>-->
                 </tr>
             </thead>
             <tbody>
@@ -46,12 +46,12 @@
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </td>
-                <td style="border-left: 1px solid #333; text-align: center" class="table-cell">
-                    <form th:action="@{/candidates/delete/{id}(id=${candidate.id})}" method="post" style="display: inline;">
-                        <input type="hidden" name="_method" value="delete">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
+<!--                <td style="border-left: 1px solid #333; text-align: center" class="table-cell">-->
+<!--                    <form th:action="@{/candidates/delete/{id}(id=${candidate.id})}" method="post" style="display: inline;">-->
+<!--                        <input type="hidden" name="_method" value="delete">-->
+<!--                        <button type="submit" class="btn btn-danger">Delete</button>-->
+<!--                    </form>-->
+<!--                </td>-->
 
             </tr>
             </tbody>

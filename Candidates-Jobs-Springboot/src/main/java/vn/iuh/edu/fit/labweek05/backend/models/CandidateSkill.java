@@ -1,10 +1,7 @@
 package vn.iuh.edu.fit.labweek05.backend.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import vn.iuh.edu.fit.labweek05.backend.enums.SkillLevel;
 
 @Getter
@@ -12,6 +9,7 @@ import vn.iuh.edu.fit.labweek05.backend.enums.SkillLevel;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name = "candidate_skill")
 public class CandidateSkill {
     @EmbeddedId

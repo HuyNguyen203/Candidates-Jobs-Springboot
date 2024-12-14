@@ -6,14 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "company")
+@Table(name = "company",  uniqueConstraints = {
+        @UniqueConstraint(name = "UK_rvp2hunsq4sgmpxe3a7i1ym3m", columnNames = {"address"}),
+        @UniqueConstraint(columnNames = {"email"})
+})
 public class Company {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comp_id", nullable = false)
     private Long id;
 
@@ -35,5 +43,11 @@ public class Company {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address", nullable = false)
     private Address address;
+
+    @OneToOne(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private User user;
+
+    @OneToMany(mappedBy = "company")
+    private Set<Job> jobs = new LinkedHashSet<>();
 
 }

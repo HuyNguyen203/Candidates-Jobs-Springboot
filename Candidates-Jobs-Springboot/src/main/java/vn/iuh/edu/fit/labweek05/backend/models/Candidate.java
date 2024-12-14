@@ -1,15 +1,16 @@
 package vn.iuh.edu.fit.labweek05.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @ToString
 @Table(name = "candidate")
 public class Candidate {
@@ -17,6 +18,7 @@ public class Candidate {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "dob", nullable = false)
     private LocalDate dob;
 
@@ -34,10 +36,24 @@ public class Candidate {
     private Address address;
 
     @OneToMany(mappedBy = "candidate")
-    private Set<Experience> experiences;
+    private Set<Experience> experiences = new LinkedHashSet<>();
 
-    public Candidate() {
-        this.address = new Address();
+    @OneToMany(mappedBy = "can")
+    private Set<CandidateSkill> candidateSkills = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL)
+    private User user;
+
+    public Candidate(){
+
+    }
+    public Candidate(Long id, LocalDate dob, String email, String fullName, String phone, Address address) {
+        this.id = id;
+        this.dob = dob;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.address = address;
     }
 
     @Override
