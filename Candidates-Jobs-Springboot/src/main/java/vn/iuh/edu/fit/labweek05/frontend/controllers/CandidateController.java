@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.iuh.edu.fit.labweek05.backend.enums.SkillLevel;
 import vn.iuh.edu.fit.labweek05.backend.enums.SkillType;
 import vn.iuh.edu.fit.labweek05.backend.models.*;
-import vn.iuh.edu.fit.labweek05.backend.repositories.AddressRepository;
-import vn.iuh.edu.fit.labweek05.backend.repositories.CandidateRepository;
-import vn.iuh.edu.fit.labweek05.backend.repositories.CandidateSkillRepository;
-import vn.iuh.edu.fit.labweek05.backend.repositories.SkillRepository;
+import vn.iuh.edu.fit.labweek05.backend.repositories.*;
 import vn.iuh.edu.fit.labweek05.backend.services.CandidateService;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +31,9 @@ import java.util.stream.IntStream;
 public class CandidateController {
     @Autowired
     private CandidateRepository candidateRepository;
+
+    @Autowired
+    private ExperienceRepository experienceRepository;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -152,6 +152,19 @@ public class CandidateController {
 
             CandidateSkill candidateSkill = new CandidateSkill(candidateSkillId, candidate, skill, more, skillLevel);
             candidateSkillRepository.save(candidateSkill);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("candidate", candidate);
+        return "candidate/profile";
+    }
+
+    @PostMapping("/addExperience/{id}")
+    public String addExperience(@PathVariable Long id, @RequestParam("companyName") String companyName, @RequestParam("role") String role, @RequestParam("formDate") String formDate, @RequestParam("toDate") String toDate, @RequestParam("workDescription") String workDescription, Model model){
+        Candidate candidate = candidateService.findById(id).orElse(null);
+        try {
+           Experience experience = new Experience(LocalDate.parse(toDate), candidate, LocalDate.parse(formDate), companyName, role, workDescription);
+           experienceRepository.save(experience);
         }catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,13 +9,13 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "Experience")
 public class Experience {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate toDate;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,4 +25,13 @@ public class Experience {
     private String companyName;
     private String role;
     private String workDescription;
+
+    public Experience(LocalDate toDate, Candidate candidate, LocalDate fromDate, String companyName, String role, String workDescription) {
+        this.toDate = toDate;
+        this.candidate = candidate;
+        this.fromDate = fromDate;
+        this.companyName = companyName;
+        this.role = role;
+        this.workDescription = workDescription;
+    }
 }

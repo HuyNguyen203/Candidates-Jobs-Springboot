@@ -48,28 +48,28 @@
 
         <div class="container" style="margin-top: 70px">
             <div class="profile-section">
-                <h3 class="fullName" th:text="${candidate.fullName }"></h3>
-                <p>Address: <p id="CityCountry" th:text="${candidate.address.number + ', ' + candidate.address.street + ', ' + candidate.address.city + ', ' + candidate.address.country}"></p></p>
-                <p>Email: <a class="email" th:text="${candidate.email}"></a></p>
-                <p>Phone: <p id="phoneNumber" th:text="${candidate.phone}"></p> </p>
-
-                <div class="text-end mb-3" style="display: flex; justify-content: flex-end">
-                    <a class="btn btn-outline-primary btn-sm" href="#editCandidateModal" data-toggle="modal">Edit</a>
+                <div style="display: flex; justify-content: space-between" >
+                    <h3 class="fullName" th:text="${candidate.fullName }"></h3>
+                    <div class="text-end mb-3" style="display: flex; justify-content: flex-end">
+                        <a class="btn btn-outline-primary btn-sm" href="#editCandidateModal" data-toggle="modal">Edit</a>
+                    </div>
                 </div>
+                <p id="CityCountry" th:text="${ 'Address: '+candidate.address.number + ', ' + candidate.address.street + ', ' + candidate.address.city + ', ' + candidate.address.country}"></p>
+                <p>Email: <a class="email" th:text="${candidate.email}"></a></p>
+                <p id="phoneNumber" th:text="${'Phone: '+candidate.phone}"></p>
                 <hr>
-
-
                 <div style="display: flex; justify-content: space-between">
                     <h4>Experience</h4>
                     <div class="text-end">
                         <a href="#addExperienceModal" data-toggle="modal" class="btn btn-primary btn-sm">Add</a>
                     </div>
                 </div>
-                <div id="listExperience" th:each="experience, iStat: ${candidate.experiences}">
-                    <p><strong th:text="${experience.getRole()} + ' at ' + ${experience.getCompanyName()}"></strong><br><i style="font-size: 12px" th:text="${experience.getFromDate()} + ', ' + ${experience.getToDate()}"></i></p>
-                    <p th:text="${experience.getWorkDescription()}"></p>
-                </div>
                 <hr>
+                <div id="listExperience" th:each="experience, iStat: ${candidate.experiences}">
+                    <p><strong th:text="${experience.getRole()} + ' at ' + ${experience.getCompanyName()}"></strong><br><i style="font-size: 12px" th:text="${experience.getFromDate()} + ' - ' + ${experience.getToDate()}"></i></p>
+                    <p th:text="${experience.getWorkDescription()}"></p>
+                    <hr />
+                </div>
 
                 <div style="display: flex; justify-content: space-between">
                     <h4>Skills</h4>
@@ -234,6 +234,47 @@
                 </div>
             </div>
             <!--    Form add experience of candidate-->
+            <div class="modal fade" id="addExperienceModal" tabindex="-1" role="dialog" aria-labelledby="registerCandidateModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="experienceModal">Add Experience</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/candidates/addExperience/{id}(id=${candidate.id})}" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="companyName">Company name: </label>
+                                        <input type="text" class="form-control" id="companyName" placeholder="Company Name" name="companyName" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="role">Role: </label>
+                                        <input type="text" class="form-control" id="role" placeholder="Role" name="role" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="formDate">Form date</label>
+                                        <input type="date" class="form-control" id="formDate" placeholder="Form date" name="formDate" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="toDate">To date</label>
+                                        <input type="date" class="form-control" id="toDate" placeholder="Form date" name="toDate" required>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="workDescription">Work Description:</label>
+                                        <textarea type="text" class="form-control" id="workDescription" placeholder="Work Description" name="workDescription" required></textarea>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary form-control mt-4">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
