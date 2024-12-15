@@ -15,8 +15,25 @@
 - **Documentation:** `Markdown`
 - **Others:** `Lombok`
 ## Tính năng
-- Đăng ký, đăng nhập tài khoản.
-- Thêm, chỉnh sửa các kỹ năng cho ứng viên
+- Giao diện khi vào địa chỉ localhost:8080
+  ![image](https://github.com/user-attachments/assets/c2b628db-dc50-4f83-8186-686e404f3246)
+- Chọn loại tài khoản để đăng ký
+  ![image](https://github.com/user-attachments/assets/aec34659-56c7-4f20-b361-d233ef28c056)
+- Đăng ký cho ứng viên
+  ![image](https://github.com/user-attachments/assets/a0a47618-2fad-44f3-a590-920269090105)
+- Đăng ký cho công ty tuyển dụng
+  ![image](https://github.com/user-attachments/assets/2acc9367-034c-409c-969f-dcb3023551d1)
+- Đăng nhập
+  ![image](https://github.com/user-attachments/assets/f9899a09-9ea9-44f7-a3e0-f5de717728e9)
+- Giao diện cho ứng viên
+  ![image](https://github.com/user-attachments/assets/f681ff89-5fad-489a-b19d-6a28fe323116)
+- Xem Profile cá nhân của tài khoản
+  ![image](https://github.com/user-attachments/assets/22c75f32-dc53-4f7b-b7b8-2ef9e9a5372b)
+- Form thêm kinh nghiệm làm việc của ứng viên
+  ![image](https://github.com/user-attachments/assets/39302230-711a-46fc-be5d-42a4d7cfd4bb)
+- Form thêm kỹ năng làm việc của ứng viên
+  ![image](https://github.com/user-attachments/assets/9bf97242-3b9c-48a6-93fd-294625bbbfeb)
+
 - Thêm và chỉnh sửa các kinh nghiệm công việc cho ứng viên
 ## Hướng dẫn sử dụng
 1. Clone project từ GitHub về máy tính bằng lệnh:
