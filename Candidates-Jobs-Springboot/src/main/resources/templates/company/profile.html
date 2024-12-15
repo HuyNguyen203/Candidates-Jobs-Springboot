@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .header p {
+      margin: 0;
+    }
+    .profile-section {
+      margin-top: -50px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .skill-badge {
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body style="background-color: aliceblue; padding: 10px">
+<div class="wrapper" id="main">
+  <nav class="navbar navbar-light bg-light">
+    <a class="btn btn-outline-primary" href="/companies/home">Back</a>
+  </nav>
+
+  <div class="header">
+    <h1 class="fullName" th:text="${company.compName}"></h1>
+  </div>
+
+  <div class="container" style="margin-top: 70px">
+    <div class="profile-section">
+      <div style="display: flex; justify-content: space-between" >
+        <h3 class="fullName" th:text="${company.compName}"></h3>
+        <div class="text-end mb-3" style="display: flex; justify-content: flex-end">
+          <a class="btn btn-outline-primary btn-sm" href="#editCompanyModal" data-toggle="modal">Edit</a>
+        </div>
+      </div>
+      <p id="CityCountry" th:text="${ 'Address: '+company.address.number + ', ' + company.address.street + ', ' + company.address.city + ', ' + company.address.country}"></p>
+      <p>Email: <a class="email" th:text="${company.email}"></a></p>
+      <p id="phoneNumber" th:text="${'Phone: '+company.phone}"></p>
+      <p id="webUrl" th:text="${'Phone: '+company.webUrl}"></p>
+      <hr>
+        <h4>About</h4>
+      <p id="about" th:text="${company.about}"></p>
+      <hr>
+      <div style="display: flex; justify-content: space-between">
+        <h4>Job</h4>
+        <div class="text-end">
+          <a href="#addSkillModal" data-toggle="modal" class="btn btn-primary btn-sm">Add</a>
+        </div>
+      </div>
+      <hr>
+      <div id="listJob" th:each="job, iStat: ${company.getJobs()}">
+        <div style="display: flex; justify-content: space-between">
+          <strong th:text="${job.jobName}"></strong>
+          <div class="text-end mb-3" style="display: flex; justify-content: flex-end">
+            <a class="btn btn-outline-primary btn-sm" href="#editCompanyModal" data-toggle="modal">Edit</a>
+          </div>
+        </div>
+        <div style="display: flex">
+            Skills need: <p th:each="skill, iStat: ${ job.getJobSkills()}" th:text="'| ' +${skill.getSkill().getSkillName() + ' |  '}" style="margin-left: 8px; color: #0d6efd">
+          </p>
+        </div>
+        <p th:text="${job.jobDesc}" style="font-style: italic"></p>
+      </div>
+      <hr>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+<style>
+  .navbar{
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-item{
+    margin-right: 5px;
+  }
+</style>
+</html>

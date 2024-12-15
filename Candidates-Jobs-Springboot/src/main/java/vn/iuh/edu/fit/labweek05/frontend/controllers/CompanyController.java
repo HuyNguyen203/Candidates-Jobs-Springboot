@@ -3,10 +3,14 @@ package vn.iuh.edu.fit.labweek05.frontend.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import vn.iuh.edu.fit.labweek05.backend.models.Address;
+import vn.iuh.edu.fit.labweek05.backend.models.Candidate;
 import vn.iuh.edu.fit.labweek05.backend.models.Company;
 import vn.iuh.edu.fit.labweek05.backend.models.Job;
 import vn.iuh.edu.fit.labweek05.backend.repositories.AddressRepository;
@@ -29,6 +33,23 @@ public class CompanyController {
     private CompanyRepository companyRepository;
     @Autowired
     private AddressRepository addressRepository;
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        Company company = new Company();
+        if(principal instanceof UserDetails) {
+            String email = ((UserDetails)principal).getUsername();
+            try {
+                company = companyRepository.findByEmail(email);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        model.addAttribute("company", company);
+        return "company/profile";
+    }
 
     @GetMapping("/home")
     public String home(Model model) {

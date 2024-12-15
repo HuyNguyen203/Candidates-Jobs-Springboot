@@ -6,14 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "job")
-@AllArgsConstructor
 @NoArgsConstructor
 public class Job {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_id", nullable = false)
     private Long id;
 
@@ -26,6 +29,15 @@ public class Job {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company")
     private Company company;
+
+    @OneToMany(mappedBy = "job")
+    private Set<JobSkill> jobSkills = new LinkedHashSet<>();
+
+    public Job(String jobDesc, String jobName, Company company) {
+        this.jobDesc = jobDesc;
+        this.jobName = jobName;
+        this.company = company;
+    }
 
     @Override
     public String toString() {
