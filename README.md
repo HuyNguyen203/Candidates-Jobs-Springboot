@@ -27,12 +27,17 @@
   ![image](https://github.com/user-attachments/assets/f9899a09-9ea9-44f7-a3e0-f5de717728e9)
 - Giao diện cho ứng viên
   ![image](https://github.com/user-attachments/assets/f681ff89-5fad-489a-b19d-6a28fe323116)
-- Xem Profile cá nhân của tài khoản
+- Xem Profile cá nhân của tài khoản ứng viên
   ![image](https://github.com/user-attachments/assets/22c75f32-dc53-4f7b-b7b8-2ef9e9a5372b)
 - Form thêm kinh nghiệm làm việc của ứng viên
   ![image](https://github.com/user-attachments/assets/39302230-711a-46fc-be5d-42a4d7cfd4bb)
 - Form thêm kỹ năng làm việc của ứng viên
   ![image](https://github.com/user-attachments/assets/9bf97242-3b9c-48a6-93fd-294625bbbfeb)
+- Giao diện cho ứng viên
+  ![image](https://github.com/user-attachments/assets/7f4a610e-f576-43a3-8771-46c02910656f)
+- Xem Profile cá nhân của tài khoản công ty tuyển dụng
+  ![image](https://github.com/user-attachments/assets/4181003c-e702-4d70-862b-9ec09dcb1f33)
+
 
 - Thêm và chỉnh sửa các kinh nghiệm công việc cho ứng viên
 ## Hướng dẫn sử dụng
