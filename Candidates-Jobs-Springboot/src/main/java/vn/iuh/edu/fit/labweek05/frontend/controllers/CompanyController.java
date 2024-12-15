@@ -30,7 +30,10 @@ public class CompanyController {
     @Autowired
     private AddressRepository addressRepository;
 
-
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "company/home";
+    }
 
     @GetMapping("/list")
     public String list(Model model) {

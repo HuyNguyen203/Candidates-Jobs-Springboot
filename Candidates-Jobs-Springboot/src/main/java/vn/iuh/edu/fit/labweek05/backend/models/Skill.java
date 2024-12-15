@@ -10,11 +10,11 @@ import vn.iuh.edu.fit.labweek05.backend.enums.SkillType;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "skill")
 public class Skill {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "skill_id", nullable = false)
     private Long id;
 
@@ -28,4 +28,9 @@ public class Skill {
     @Column(name = "type")
     private SkillType type;
 
+    public Skill(String skillName, SkillType type, String skillDescription) {
+        this.skillName = skillName;
+        this.type = type;
+        this.skillDescription = skillDescription;
+    }
 }

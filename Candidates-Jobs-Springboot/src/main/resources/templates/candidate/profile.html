@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .header p {
+            margin: 0;
+        }
+        .profile-section {
+            margin-top: -50px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .skill-badge {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body style="background-color: aliceblue; padding: 10px">
+    <div class="wrapper" id="main">
+        <nav class="navbar navbar-light bg-light">
+            <a class="btn btn-outline-primary" href="/candidates/home">Back</a>
+        </nav>
+
+        <div class="header">
+            <h1 class="fullName" th:text="${candidate.fullName}"></h1>
+            <span  style="display: flex; justify-content: center; align-items: center">|
+                <p class="skill" id="skill" th:each="skill, iStat: ${candidate.candidateSkills}" th:text="${ ' ' + skill.getSkill().getSkillName() + '  | '}" style="margin-left: 10px"></p>
+            </span>
+        </div>
+
+        <div class="container" style="margin-top: 70px">
+            <div class="profile-section">
+                <h3 class="fullName" th:text="${candidate.fullName }"></h3>
+                <p>Address: <p id="CityCountry" th:text="${candidate.address.number + ', ' + candidate.address.street + ', ' + candidate.address.city + ', ' + candidate.address.country}"></p></p>
+                <p>Email: <a class="email" th:text="${candidate.email}"></a></p>
+                <p>Phone: <p id="phoneNumber" th:text="${candidate.phone}"></p> </p>
+
+                <div class="text-end mb-3" style="display: flex; justify-content: flex-end">
+                    <a class="btn btn-outline-primary btn-sm" href="#editCandidateModal" data-toggle="modal">Edit</a>
+                </div>
+                <hr>
+
+
+                <div style="display: flex; justify-content: space-between">
+                    <h4>Experience</h4>
+                    <div class="text-end">
+                        <a href="#addExperienceModal" data-toggle="modal" class="btn btn-primary btn-sm">Add</a>
+                    </div>
+                </div>
+                <div id="listExperience" th:each="experience, iStat: ${candidate.experiences}">
+                    <p><strong th:text="${experience.getRole()} + ' at ' + ${experience.getCompanyName()}"></strong><br><i style="font-size: 12px" th:text="${experience.getFromDate()} + ', ' + ${experience.getToDate()}"></i></p>
+                    <p th:text="${experience.getWorkDescription()}"></p>
+                </div>
+                <hr>
+
+                <div style="display: flex; justify-content: space-between">
+                    <h4>Skills</h4>
+                    <div class="text-end">
+                        <a href="#addSkillModal" data-toggle="modal" class="btn btn-primary btn-sm">Add</a>
+                    </div>
+                </div>
+
+                <span style="display: flex">
+                        <table class="table table-hover" style=" margin: 10px; padding: 10px;border-radius: 10%">
+                            <thead>
+                                <tr style="border-bottom: 1px #333 solid">
+                                    <th >Skill name</th>
+                                    <th >Description</th>
+                                    <th >Type</th>
+                                    <th >Level</th>
+                                    <th >More infomation</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="listSkill" th:each="skill, iStat: ${candidate.candidateSkills}" >
+                                    <th th:text="${ skill.getSkill().getSkillName() }" class="table-cell" style="font-weight: normal"></th>
+                                    <th th:text="${ skill.getSkill().getSkillDescription() }" class="table-cell" style="font-weight: normal"></th>
+                                    <th th:text="${ skill.getSkill().getType() }"  class="table-cell" style="font-weight: normal"></th>
+                                    <th th:text="${ skill.getSkillLevel() }"  class="table-cell" style="font-weight: normal"></th>
+                                    <th th:text="${ skill.getMoreInfos() }" class="table-cell" style="font-weight: normal"></th>
+                                    <td style="border-left: 1px solid lightgray; text-align: center" class="table-cell" >
+                                        <form th:action="@{/candidates/edit/{id}(id=${candidate.id})}" style="display: inline;">
+                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </span>
+
+                <hr>
+            </div>
+
+            <!--    Form edit candidate-->
+            <div class="modal fade" id="editCandidateModal" tabindex="-1" role="dialog" aria-labelledby="registerCandidateModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="registerModal">Edit User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/candidates/edit/{id}(id=${candidate.id})}" th:object="${candidate}" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="fullName">Name:</label>
+                                        <input type="text" class="form-control" id="fullName" th:field="*{fullName}" name="fullName" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="dob">Date of birth:</label>
+                                        <input type="date" class="form-control" id="dob" th:field="*{dob}" name="dob" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="text" class="form-control" id="email" th:field="*{email}" name="email"
+                                               required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="phone">Phone Number:</label>
+                                        <input type="text" class="form-control" id="phone" th:field="*{phone}" name="phone" required>
+                                    </div>
+                                    <div class="col-md-6 form-group city">
+                                        <label for="city">City:</label>
+                                        <input type="text" class="form-control" id="city" th:field="*{address.city}" name="city" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="country">Country:</label>
+                                        <input type="text" class="form-control" id="country" th:field="*{address.country}"
+                                               name="country" required>
+                                    </div>
+                                </div>
+
+                                <!-- Address Section -->
+                                <div class="address-block">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label for="street">Street:</label>
+                                            <input type="text" class="form-control" id="street" th:field="*{address.street}" name="street" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="number">Number:</label>
+                                            <input type="text" class="form-control" id="number" th:field="*{address.number}" name="number"
+                                                   required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1">
+
+                                        <div class="col-md-6 form-group">
+                                            <label for="zipcode">Zipcode:</label>
+                                            <input type="text" class="form-control" id="zipcode" th:field="*{address.zipcode}" name="zipcode" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary form-control mt-4">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--    Form add skill of candidate-->
+            <div class="modal fade" id="addSkillModal" tabindex="-1" role="dialog" aria-labelledby="registerCandidateModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="skillModal">Add Skill</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/candidates/addSkill/{id}(id=${candidate.id})}" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="skillName">SkillName: </label>
+                                        <input type="text" class="form-control" id="skillName" placeholder="Skill Name" name="skillName" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="type">Type:</label>
+                                        <select class="form-control" id="type" placeholder="Type" name="type">
+                                            <option value="UNSPECIFIED">Unspecifed</option>
+                                            <option value="TECHNICAL_SKILL">Technical</option>
+                                            <option value="SOFT_SKILL">Soft skill</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="more">More Information: </label>
+                                        <input type="text" class="form-control" id="more" placeholder="More infor" name="more" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="level">Level:</label>
+                                        <select class="form-control" id="level" placeholder="Level" name="level">
+                                            <option value="MASTER">MASTER</option>
+                                            <option value="BEGINER">BEGINER</option>
+                                            <option value="ADVANCED">ADVANCED</option>
+                                            <option value="PROFESSIONAL">PROFESSIONAL</option>
+                                            <option value="IMTERMEDIATE">IMTERMEDIATE</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="skillDescription">Skill Description:</label>
+                                        <textarea type="text" class="form-control" id="skillDescription" placeholder="Skill Description" name="skillDescription" required></textarea>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary form-control mt-4">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--    Form add experience of candidate-->
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+<style>
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+    }
+    .nav-item{
+        margin-right: 5px;
+    }
+</style>
+<!--<script>-->
+
+<!--            profile = {-->
+<!--                name: "data.fullName",-->
+<!--                address: {-->
+<!--                    street: "Nguyen Van Bao",-->
+<!--                    city: "Ho Chi Minh",-->
+<!--                    country: "Viet Nam",-->
+<!--                },-->
+<!--                email: "nhathuy39337343@gmail.com",-->
+<!--                phone: "0384784472",-->
+<!--                experiences: [-->
+<!--                    {-->
+<!--                        job: "Backend Developer",-->
+<!--                        companyName: "Tech Company",-->
+<!--                        dateForm: '2020-03-03',-->
+<!--                        dateTo: '2022-03-03',-->
+<!--                    },-->
+<!--                    {-->
+<!--                        job: "Backend Developer",-->
+<!--                        companyName: "FPT Company",-->
+<!--                        dateForm: '2022-03-03',-->
+<!--                        dateTo: '2024-03-03',-->
+<!--                    }-->
+
+<!--                ],-->
+<!--                skills: [-->
+<!--                    "Java",-->
+<!--                    "Spring Boot",-->
+<!--                    "SQL",-->
+<!--                    "CLoud Functions"-->
+<!--                ],-->
+<!--                linkedin: "likedin.com/in/huy-nguyen",-->
+<!--                github: "github.com/huynguyen"-->
+
+<!--    }-->
+
+<!--    const fullName = document.getElementsByClassName("fullName");-->
+<!--    const skill = document.getElementById("skill");-->
+<!--    const CityCountry = document.getElementById("CityCountry");-->
+<!--    const email = document.getElementsByClassName("email");-->
+<!--    const phone = document.getElementById("phone");-->
+<!--    const listExperience = document.getElementById("listExperience");-->
+<!--    const listSkill = document.getElementById("listSkill");-->
+<!--    const linkedin = document.getElementById("linkedin");-->
+<!--    const github = document.getElementById("github");-->
+
+
+<!--    for(let i = 0; i < fullName.length; i++)-->
+<!--    {-->
+<!--        fullName[i].textContent = profile.name;-->
+<!--    }-->
+
+<!--    skill.textContent += ' | '-->
+<!--    profile.skills.forEach((item)=>{-->
+<!--        skill.textContent += item.toString() + " | ";-->
+<!--    })-->
+<!--    CityCountry.textContent = profile.address.city+', '+profile.address.country;-->
+<!--    for(let i = 0; i < email.length; i++)-->
+<!--    {-->
+<!--        email[i].textContent = profile.email;-->
+<!--    }-->
+<!--    phone.textContent = profile.phone;-->
+<!--    profile.experiences.forEach((item)=>{-->
+<!--        const dateTo = new Date(item.dateTo);-->
+<!--        const dateForm = new Date(item.dateForm);-->
+<!--        const options = { year: 'numeric', month: 'long', day: 'numeric' };-->
+<!--        const formatteddateTo = new Intl.DateTimeFormat('en-US', options).format(dateTo);-->
+<!--        const formatteddateForm= new Intl.DateTimeFormat('en-US', options).format(dateForm);-->
+<!--        listExperience.innerHTML += (`-->
+<!--            <p><strong>${item.job} at ${item.companyName}</strong><br><i style="font-size: 12px">${formatteddateTo} - ${formatteddateForm}</i></p>-->
+<!--            <p>Developed microservices using Spring Boot, integrated with cloud platforms, and improved system performance.</p>-->
+<!--        `)-->
+<!--    })-->
+
+<!--    profile.skills.forEach((item) => {-->
+<!--        listSkill.innerHTML += (`-->
+<!--        <span class="badge bg-primary skill-badge">${item}</span>-->
+<!--    `)-->
+<!--    });-->
+<!--    linkedin.textContent = profile.linkedin;-->
+<!--    github.textContent = profile.github;-->
+
+
+<!--</script>-->
+</html>
